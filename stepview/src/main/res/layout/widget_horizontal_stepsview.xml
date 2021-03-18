@@ -11,6 +11,8 @@
     <com.baoyachi.stepview.HorizontalStepsViewIndicator
         android:id="@+id/steps_indicator"
         android:layout_width="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"/>
 

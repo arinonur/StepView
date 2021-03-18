@@ -38,6 +38,9 @@ public class TestHorizontalStepViewActivity extends AppCompatActivity
                 StepBean stepBean3 = new StepBean("送单",-1);
                 StepBean stepBean4 = new StepBean("完成",-1);
                 StepBean stepBean5 = new StepBean("支付",-1);
+                StepBean stepBean6 = new StepBean("支付",-1);
+                StepBean stepBean7 = new StepBean("支付",-1);
+                StepBean stepBean8 = new StepBean("支付",-1);
                 stepsBeanList.add(stepBean0);
                 stepsBeanList.add(stepBean1);
                 stepsBeanList.add(stepBean2);
