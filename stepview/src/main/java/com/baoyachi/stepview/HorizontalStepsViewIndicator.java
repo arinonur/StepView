@@ -101,7 +101,6 @@ public class HorizontalStepsViewIndicator extends View
     {
         mStepBeanList = new ArrayList<>();
         mPath = new Path();
-        mEffects = new DashPathEffect(new float[]{8, 8, 8, 8}, 1);
 
         mCircleCenterPointPositionList = new ArrayList<>();//初始化
 
@@ -119,6 +118,7 @@ public class HorizontalStepsViewIndicator extends View
 
         mUnCompletedPaint.setPathEffect(mEffects);
         mCompletedPaint.setStyle(Paint.Style.FILL);
+        mUnCompletedPaint.setStyle(Paint.Style.FILL);
 
         //已经完成线的宽高 set mCompletedLineHeight
         mCompletedLineHeight = 0.05f * defaultStepIndicatorNum;
@@ -205,7 +205,7 @@ public class HorizontalStepsViewIndicator extends View
             {
                 mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
                 mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
-                canvas.drawPath(mPath, mUnCompletedPaint);
+                canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
             }
         }
         //-----------------------画线-------draw line-----------------------------------------------
@@ -283,6 +283,11 @@ public class HorizontalStepsViewIndicator extends View
     public void setUnCompletedLineColor(int unCompletedLineColor)
     {
         this.mUnCompletedLineColor = unCompletedLineColor;
+    }
+
+    public void setUnCompletedLineHeight(float unCompletedLineHeight)
+    {
+        this.mCompletedLineHeight = unCompletedLineHeight;
     }
 
     /**

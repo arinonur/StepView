@@ -52,6 +52,7 @@ public class TestHorizontalStepViewActivity extends AppCompatActivity
                 stepView.setStepViewTexts(stepsBeanList)
                         .setTextSize(16)//set textSize
                         .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(getBaseContext(), android.R.color.white))//设置StepsViewIndicator完成线的颜色
+                        .setStepsViewIndicatorUnCompletedLineHeight(20f)
                         .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(getBaseContext(), R.color.uncompleted_text_color))//设置StepsViewIndicator未完成线的颜色
                         .setStepViewComplectedTextColor(ContextCompat.getColor(getBaseContext(), android.R.color.white))//设置StepsView text完成线的颜色
                         .setStepViewUnComplectedTextColor(ContextCompat.getColor(getBaseContext(), R.color.uncompleted_text_color))//设置StepsView text未完成线的颜色

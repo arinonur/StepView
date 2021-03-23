@@ -1,6 +1,5 @@
 package com.baoyachi.stepview;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -28,7 +27,6 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
     private RelativeLayout mTextContainer;
     private HorizontalStepsViewIndicator mStepsViewIndicator;
     private List<StepBean> mStepBeanList;
-    private int mfontFamily;
     private int mComplectingPosition;
     private int mUnComplectedTextColor = ContextCompat.getColor(getContext(), R.color.uncompleted_text_color);//定义默认未完成文字的颜色;
     private int mComplectedTextColor = ContextCompat.getColor(getContext(), android.R.color.white);//定义默认完成文字的颜色;
@@ -109,6 +107,12 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
         return this;
     }
 
+    public HorizontalStepView setStepsViewIndicatorUnCompletedLineHeight(float unCompletedLineHeight)
+    {
+        mStepsViewIndicator.setUnCompletedLineHeight(unCompletedLineHeight);
+        return this;
+    }
+
     /**
      * 设置StepsViewIndicator完成线的颜色
      *
@@ -169,12 +173,6 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
         return this;
     }
 
-    public HorizontalStepView setFontFamily(int fontFamily){
-        mfontFamily = fontFamily;
-        return this;
-    }
-
-    @SuppressLint("ResourceAsColor")
     @Override
     public void ondrawIndicator()
     {
@@ -188,9 +186,6 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
                 {
                     mTextView = new TextView(getContext());
                     mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
-                    mTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(),
-                            "fonts/nexabold.ttf"), mfontFamily);
-                    mTextView.setTextColor(R.color.black);
                     mTextView.setText(mStepBeanList.get(i).getName());
                     int spec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                     mTextView.measure(spec, spec);
@@ -198,6 +193,15 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
                     int measuredWidth = mTextView.getMeasuredWidth();
                     mTextView.setX(complectedXPosition.get(i) - measuredWidth / 2);
                     mTextView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                    if(i <= mComplectingPosition)
+                    {
+                        mTextView.setTypeface(null, Typeface.BOLD);
+                        mTextView.setTextColor(mComplectedTextColor);
+                    } else
+                    {
+                        mTextView.setTextColor(mUnComplectedTextColor);
+                    }
 
                     mTextContainer.addView(mTextView);
                 }
