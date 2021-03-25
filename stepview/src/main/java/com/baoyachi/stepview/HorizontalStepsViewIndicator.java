@@ -213,7 +213,7 @@ public class HorizontalStepsViewIndicator extends View
             {
                 mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
                 mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
-
+                canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
             }
         }
         //-----------------------画线-------draw line-----------------------------------------------
