@@ -204,21 +204,39 @@ public class HorizontalStepsViewIndicator extends View
             final float preComplectedXPositionForGrad = mCircleCenterPointPositionList.get(0);
             //后一个ComplectedXPosition
             final float afterComplectedXPosition = mCircleCenterPointPositionList.get(i+ 1);
-            final float afterComplectedXPositionForGrad = mCircleCenterPointPositionList.get(mComplectingPosition);
+            if (mCircleCenterPointPositionList.size() - 1 == mComplectingPosition){
+                final float afterComplectedXPositionForGrad = mCircleCenterPointPositionList.get(mComplectingPosition);
+                m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
+
+                if(i <= mComplectingPosition&&mStepBeanList.get(0).getState()!=StepBean.STEP_UNDO)//判断在完成之前的所有点
+                {
+                    //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
+                    canvas.drawRect(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, m_Paint);
+                } else
+                {
+                    mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
+                    mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
+                    canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
+                }
+            }else{
+                final float afterComplectedXPositionForGrad = mCircleCenterPointPositionList.get(mComplectingPosition + 1);
+                m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
+
+                if(i <= mComplectingPosition&&mStepBeanList.get(0).getState()!=StepBean.STEP_UNDO)//判断在完成之前的所有点
+                {
+                    //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
+                    canvas.drawRect(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, m_Paint);
+                } else
+                {
+                    mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
+                    mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
+                    canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
+                }
+            }
+
             System.out.println("afterComplectedXPosition:" + mCircleCenterPointPositionList.size());
             System.out.println("preComplectedXPosition:" + mComplectingPosition);
-            m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
 
-            if(i <= mComplectingPosition&&mStepBeanList.get(0).getState()!=StepBean.STEP_UNDO)//判断在完成之前的所有点
-            {
-                //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
-                canvas.drawRect(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, m_Paint);
-            } else
-            {
-                mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
-                mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
-                canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
-            }
         }
         //-----------------------画线-------draw line-----------------------------------------------
 
