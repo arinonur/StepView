@@ -195,6 +195,7 @@ public class HorizontalStepsViewIndicator extends View
         mCompletedPaint.setColor(mCompletedLineColor);
 
         Paint m_Paint = new Paint();
+
         m_Paint.setShader(new LinearGradient(0, 0, 100, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
         //-----------------------画线-------draw line-----------------------------------------------
         for(int i = 0; i < mCircleCenterPointPositionList.size() -1; i++)
