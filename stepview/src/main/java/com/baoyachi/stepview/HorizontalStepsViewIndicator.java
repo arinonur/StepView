@@ -1,14 +1,18 @@
 package com.baoyachi.stepview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathEffect;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -112,7 +116,7 @@ public class HorizontalStepsViewIndicator extends View
         mUnCompletedPaint.setStrokeWidth(2);
 
         mCompletedPaint.setAntiAlias(true);
-        mCompletedPaint.setColor(mCompletedLineColor);
+//        mCompletedPaint.setColor(mCompletedLineColor);
         mCompletedPaint.setStyle(Paint.Style.STROKE);
         mCompletedPaint.setStrokeWidth(2);
 
@@ -178,6 +182,7 @@ public class HorizontalStepsViewIndicator extends View
         }
     }
 
+    @SuppressLint({"ResourceAsColor", "DrawAllocation"})
     @Override
     protected synchronized void onDraw(Canvas canvas)
     {
@@ -189,6 +194,8 @@ public class HorizontalStepsViewIndicator extends View
         mUnCompletedPaint.setColor(mUnCompletedLineColor);
         mCompletedPaint.setColor(mCompletedLineColor);
 
+        Paint m_Paint = new Paint();
+        m_Paint.setShader(new LinearGradient(0, 0, 100, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
         //-----------------------画线-------draw line-----------------------------------------------
         for(int i = 0; i < mCircleCenterPointPositionList.size() -1; i++)
         {
@@ -200,12 +207,12 @@ public class HorizontalStepsViewIndicator extends View
             if(i <= mComplectingPosition&&mStepBeanList.get(0).getState()!=StepBean.STEP_UNDO)//判断在完成之前的所有点
             {
                 //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
-                canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mCompletedPaint);
+                canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, m_Paint);
             } else
             {
                 mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
                 mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
-                canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
+
             }
         }
         //-----------------------画线-------draw line-----------------------------------------------
@@ -225,7 +232,7 @@ public class HorizontalStepsViewIndicator extends View
                 mDefaultIcon.draw(canvas);
             }else if(stepsBean.getState()==StepBean.STEP_CURRENT)
             {
-                mCompletedPaint.setColor(Color.WHITE);
+//                mCompletedPaint.setColor(Color.WHITE);
                 canvas.drawCircle(currentComplectedXPosition, mCenterY, mCircleRadius * 1.1f, mCompletedPaint);
                 mAttentionIcon.setBounds(rect);
                 mAttentionIcon.draw(canvas);
