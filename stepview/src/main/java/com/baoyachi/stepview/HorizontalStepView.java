@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -196,7 +197,8 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
 
                     if(i <= mComplectingPosition)
                     {
-                        mTextView.setTypeface(null, Typeface.BOLD);
+                        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/nexabold.ttf");
+                        mTextView.setTypeface(typeface);
                         mTextView.setTextColor(mComplectedTextColor);
                     } else
                     {
