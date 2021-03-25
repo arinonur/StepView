@@ -202,7 +202,7 @@ public class HorizontalStepsViewIndicator extends View
             //前一个ComplectedXPosition
             final float preComplectedXPosition = mCircleCenterPointPositionList.get(i);
             //后一个ComplectedXPosition
-            final float afterComplectedXPosition = mCircleCenterPointPositionList.get(i + 1);
+            final float afterComplectedXPosition = mCircleCenterPointPositionList.size() + 1;
             m_Paint.setShader(new LinearGradient(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
 
             if(i <= mComplectingPosition&&mStepBeanList.get(0).getState()!=StepBean.STEP_UNDO)//判断在完成之前的所有点
