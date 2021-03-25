@@ -147,7 +147,11 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
         mStepsViewIndicator.setCompleteIcon(completeIcon);
         return this;
     }
-
+    public HorizontalStepView setIsGradient(boolean isGradient)
+    {
+        mStepsViewIndicator.setIsGradient(isGradient);
+        return this;
+    }
     /**
      * 设置StepsViewIndicator正在进行中的图片
      *
