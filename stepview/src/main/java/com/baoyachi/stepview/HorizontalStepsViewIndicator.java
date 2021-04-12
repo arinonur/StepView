@@ -35,6 +35,7 @@ public class HorizontalStepsViewIndicator extends View {
     private float mCompletedLineHeight;//完成线的高度     definition completed line height
     private float mCircleRadius;//圆的半径  definition circle radius
     private boolean isGradient = false;
+    private boolean isCompleted = false;
 
     private Drawable mCompleteIcon;//完成的默认图片    definition default completed icon
     private Drawable mAttentionIcon;//正在进行的默认图片     definition default underway icon
@@ -190,9 +191,39 @@ public class HorizontalStepsViewIndicator extends View {
             //后一个ComplectedXPosition
             final float afterComplectedXPosition = mCircleCenterPointPositionList.get(i + 1);
             if (isGradient == true) {
+                if (isCompleted == false){
+                    if (mCircleCenterPointPositionList.size() - 1 == mComplectingPosition) {
+                        final float afterComplectedXPositionForGrad = mCircleCenterPointPositionList.get(mComplectingPosition);
+                        m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#1AFF7C7C"), Color.parseColor("#FF7C7C"), Shader.TileMode.MIRROR));
+
+                        if (i <= mComplectingPosition && mStepBeanList.get(0).getState() != StepBean.STEP_UNDO)//判断在完成之前的所有点
+                        {
+                            //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
+                            canvas.drawRect(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, m_Paint);
+                        } else {
+                            mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
+                            mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
+                            canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
+                        }
+                    } else {
+                        final float afterComplectedXPositionForGrad = mCircleCenterPointPositionList.get(mComplectingPosition + 1);
+                        m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#1AFF7C7C"), Color.parseColor("#FF7C7C"), Shader.TileMode.MIRROR));
+
+                        if (i <= mComplectingPosition && mStepBeanList.get(0).getState() != StepBean.STEP_UNDO)//判断在完成之前的所有点
+                        {
+                            //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
+                            canvas.drawRect(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, m_Paint);
+                        } else {
+                            mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);
+                            mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
+                            canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
+                        }
+                    }
+                }else if (isCompleted == true){
+
                 if (mCircleCenterPointPositionList.size() - 1 == mComplectingPosition) {
                     final float afterComplectedXPositionForGrad = mCircleCenterPointPositionList.get(mComplectingPosition);
-                    m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
+                    m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#1A99D072"), Color.parseColor("#99D072"), Shader.TileMode.MIRROR));
 
                     if (i <= mComplectingPosition && mStepBeanList.get(0).getState() != StepBean.STEP_UNDO)//判断在完成之前的所有点
                     {
@@ -203,9 +234,10 @@ public class HorizontalStepsViewIndicator extends View {
                         mPath.lineTo(afterComplectedXPosition - mCircleRadius, mCenterY);
                         canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mUnCompletedPaint);
                     }
+                }
                 } else {
                     final float afterComplectedXPositionForGrad = mCircleCenterPointPositionList.get(mComplectingPosition + 1);
-                    m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#00BAE6"), Shader.TileMode.MIRROR));
+                    m_Paint.setShader(new LinearGradient(preComplectedXPositionForGrad, mLeftY, afterComplectedXPositionForGrad, mRightY, Color.parseColor("#E6CF00"), Color.parseColor("#FF7C7C"), Shader.TileMode.MIRROR));
 
                     if (i <= mComplectingPosition && mStepBeanList.get(0).getState() != StepBean.STEP_UNDO)//判断在完成之前的所有点
                     {
@@ -334,6 +366,11 @@ public class HorizontalStepsViewIndicator extends View {
 
     public void setIsGradient(boolean isGradient) {
         this.isGradient = isGradient;
+    }
+
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
     /**
