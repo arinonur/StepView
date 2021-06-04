@@ -204,15 +204,15 @@ public class HorizontalStepView extends LinearLayout implements HorizontalStepsV
                     mTextView.setX(complectedXPosition.get(i) - measuredWidth / 2);
                     mTextView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-                    if(i <= mComplectingPosition)
-                    {
-                        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/nexabold.ttf");
-                        mTextView.setTypeface(typeface);
-                        mTextView.setTextColor(mComplectedTextColor);
-                    } else
-                    {
-                        mTextView.setTextColor(mUnComplectedTextColor);
-                    }
+//                     if(i <= mComplectingPosition)
+//                     {
+//                         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/nexabold.ttf");
+//                         mTextView.setTypeface(typeface);
+//                         mTextView.setTextColor(mComplectedTextColor);
+//                     } else
+//                     {
+//                         mTextView.setTextColor(mUnComplectedTextColor);
+//                     }
 
                     mTextContainer.addView(mTextView);
                 }
